@@ -99,7 +99,7 @@
 <h2><span class="section-number">2.1. </span>OpenBroker client<a class="headerlink" href="#openbroker-client" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="openbroker.OpenBroker">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.</span></span><span class="sig-name descname"><span class="pre">OpenBroker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phone_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openbroker.OpenBroker" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.</span></span><span class="sig-name descname"><span class="pre">OpenBroker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phone_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orders_group_tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openbroker.OpenBroker" title="Permalink to this definition"></a></dt>
 <dd><p>OpenBroker client. The main entry point to AlgoTest APIs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -139,8 +139,19 @@
 <dt class="sig sig-object py" id="openbroker.OpenBroker.connect">
 <span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument_filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openbroker.OpenBroker.connect" title="Permalink to this definition"></a></dt>
 <dd><p>Connect to AlgoTest account and initialize internal components to start using the APIs.
-:param instrument_filepath: Optional path to the file where instruments are stored.
-:return:</p>
+It initializes the <cite>OrdersClient</cite>, establishing a websocket connection to receive order updates. And if a group tag was supplied
+during initialization, fetches state of all previous orders belonging to that tag.
+It also initializes the <cite>BrokersClient</cite>, fetching the list of brokers connected by the user.
+It also initializes the <cite>InstrumentsClient</cite>, fetching or restoring the list of instruments available for trading.
+It is recommended to provide a static instrument_filepath to avoid fetching instruments every time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>instrument_filepath</strong> – Optional path to the file where instruments are stored.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -186,6 +197,12 @@ Use any of the kwargs to select the broker. Only one of the kwargs may be provid
 <dt class="sig sig-object py" id="openbroker.BrokersClient.login_broker">
 <span class="sig-name descname"><span class="pre">login_broker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">broker_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#openbroker.constant.Broker" title="openbroker.constant.broker.Broker"><span class="pre">Broker</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openbroker.BrokersClient.login_broker" title="Permalink to this definition"></a></dt>
 <dd><p>Login to the broker - Experimental feature currently implemented for a few brokers (Zerodha and XTS brokers)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openbroker.BrokersClient.update_brokers">
+<span class="sig-name descname"><span class="pre">update_brokers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#openbroker.BrokersClient.update_brokers" title="Permalink to this definition"></a></dt>
+<dd><p>Fetch the list of brokers connected by the user and update the internal state</p>
 </dd></dl>
 
 </dd></dl>
@@ -336,7 +353,7 @@ Use any of the kwargs to select the broker. Only one of the kwargs may be provid
 <h2><span class="section-number">2.4. </span>Orders interface<a class="headerlink" href="#orders-interface" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="openbroker.OrdersClient">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.</span></span><span class="sig-name descname"><span class="pre">OrdersClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UserSession</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openbroker.OrdersClient" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.</span></span><span class="sig-name descname"><span class="pre">OrdersClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UserSession</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orders_group_tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openbroker.OrdersClient" title="Permalink to this definition"></a></dt>
 <dd><dl class="py property">
 <dt class="sig sig-object py" id="openbroker.OrdersClient.all_orders">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">all_orders</span></span><a class="headerlink" href="#openbroker.OrdersClient.all_orders" title="Permalink to this definition"></a></dt>
@@ -353,6 +370,23 @@ Use any of the kwargs to select the broker. Only one of the kwargs may be provid
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>dictionary of order_id: CancelResponse pairs for each order</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openbroker.OrdersClient.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ws_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fetch_prev_orders</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openbroker.OrdersClient.connect" title="Permalink to this definition"></a></dt>
+<dd><p>Establish a connection to the Orders API Update Websocket, and fetches previous orders, if required.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ws_update</strong> – If websocket should be enabled for orders update</p></li>
+<li><p><strong>fetch_prev_orders</strong> – If previous orders placed with the same orders_group_tag are to be fetched</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>

@@ -1,0 +1,33 @@
+import enum
+
+
+class Broker(str, enum.Enum):
+    """
+    Enum representing the brokers integrated on AlgoTest.
+    """
+    AcAgrawal = "Broker.AcAgrawal"
+    AliceBlue = "Broker.AliceBlue"
+    AngelOne = "Broker.AngelOne"
+    BigulXTS = "Broker.BigulXTS"
+    Choice = "Broker.Choice"
+    Dhan = "Broker.Dhan"
+    Edelweiss = "Broker.Edelweiss"
+    Firstock = "Broker.Firstock"
+    Finvasia = "Broker.Finvasia"
+    FivePaisa = "Broker.FivePaisa"
+    FlatTrade = "Broker.FlatTrade"
+    Fyers = "Broker.Fyers"
+    IIFL = "Broker.IIFL"
+    ICICI = "Broker.ICICI"
+    Jainam = "Broker.Jainam"
+    JainamPro = "Broker.JainamPro"
+    JainamXTS = "Broker.JainamXTS"
+    JMFL = "Broker.JMFL"
+    Kotak = "Broker.Kotak"
+    MasterTrust = "Broker.MasterTrust"
+    Motilal = "Broker.Motilal"
+    Paytm = "Broker.Paytm"
+    Upstox = "Broker.Upstox"
+    WisdomCapital = "Broker.WisdomCapital"
+    Zebu = "Broker.Zebu"
+    Zerodha = "Broker.Zerodha"

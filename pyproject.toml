@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "openbroker"
+version = "0.1.0"
+description = "The first unified API for algo-trading on Indian markets - by AlgoTest"
+authors = ["rajat499", "BalzySte"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pyotp = "^2.8.0"
+requests = "^2.31.0"
+urllib3 = "^2.1.0"
+websocket-client = "^1.3.2"
+
+[tool.poetry.group.dev.dependencies]
+Sphinx = "^7.1"
+docutils = "^0.20.1"
+sphinx_rtd_theme = "^2.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,1 +1,7 @@
+_build/
+__pycache__/
+venv/
+contracts.json
+credentials.ini
 .DS_Store
+dist/

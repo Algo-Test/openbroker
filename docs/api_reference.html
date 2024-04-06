@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2. API Reference &mdash; Open Broker 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=2389946f"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="3. Changelog" href="changelog.html" />
+    <link rel="prev" title="1. Tutorial" href="tutorial.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Open Broker
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">1. Tutorial</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#openbroker-client">2.1. OpenBroker client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#brokers-interface">2.2. Brokers interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#instruments-interface">2.3. Instruments interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#orders-interface">2.4. Orders interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#order-objects">2.4.1. Order objects</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#order-parameters">2.4.1.1. Order parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#enums-and-constants">2.4.1.2. Enums and constants</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#place-modify-cancel-orders-interfaces">2.4.2. Place/Modify/Cancel orders interfaces</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#place-order">2.4.2.1. Place order</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modify-order">2.4.2.2. Modify order</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cancel-order">2.4.2.3. Cancel order</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">3. Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Open Broker</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">2. </span>API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/api_reference.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="api-reference">
+<h1><span class="section-number">2. </span>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading"></a></h1>
+<section id="openbroker-client">
+<h2><span class="section-number">2.1. </span>OpenBroker client<a class="headerlink" href="#openbroker-client" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openbroker.OpenBroker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.</span></span><span class="sig-name descname"><span class="pre">OpenBroker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phone_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openbroker.OpenBroker" title="Permalink to this definition"></a></dt>
+<dd><p>OpenBroker client. The main entry point to AlgoTest APIs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>phone_number</strong> – User phone number</p></li>
+<li><p><strong>password</strong> – User password</p></li>
+<li><p><strong>user_tag</strong> – User tag assigned to orders</p></li>
+</ul>
+</dd>
+</dl>
+<p>The main client and entry point to AlgoTest APIs.</p>
+<p>It provides authentication and session management for the APIs and exposes the following interfaces:
+- Brokers API <a class="reference internal" href="#openbroker.BrokersClient" title="openbroker.broker.BrokersClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">BrokersClient</span></code></a> for broker information lookup
+- Instruments API <a class="reference internal" href="#openbroker.InstrumentsClient" title="openbroker.instrument.InstrumentsClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">InstrumentsClient</span></code></a> for instrument information lookup
+- Orders API <a class="reference internal" href="#openbroker.OrdersClient" title="openbroker.order.OrdersClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrdersClient</span></code></a> for order management</p>
+<p><strong>Attributes</strong></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.OpenBroker.brokers">
+<span class="sig-name descname"><span class="pre">brokers</span></span><a class="headerlink" href="#openbroker.OpenBroker.brokers" title="Permalink to this definition"></a></dt>
+<dd><p>The <a class="reference internal" href="#openbroker.BrokersClient" title="openbroker.broker.BrokersClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">BrokersClient</span></code></a> instance for broker information lookup</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.OpenBroker.instruments">
+<span class="sig-name descname"><span class="pre">instruments</span></span><a class="headerlink" href="#openbroker.OpenBroker.instruments" title="Permalink to this definition"></a></dt>
+<dd><p>The <a class="reference internal" href="#openbroker.InstrumentsClient" title="openbroker.instrument.InstrumentsClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">InstrumentsClient</span></code></a> instance for instrument information lookup</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.OpenBroker.orders">
+<span class="sig-name descname"><span class="pre">orders</span></span><a class="headerlink" href="#openbroker.OpenBroker.orders" title="Permalink to this definition"></a></dt>
+<dd><p>The <a class="reference internal" href="#openbroker.OrdersClient" title="openbroker.order.OrdersClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrdersClient</span></code></a> instance for order management</p>
+</dd></dl>
+
+<p><strong>Methods</strong></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="openbroker.OpenBroker.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument_filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openbroker.OpenBroker.connect" title="Permalink to this definition"></a></dt>
+<dd><p>Connect to AlgoTest account and initialize internal components to start using the APIs.
+:param instrument_filepath: Optional path to the file where instruments are stored.
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openbroker.OpenBroker.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#openbroker.OpenBroker.close" title="Permalink to this definition"></a></dt>
+<dd><p>Close the OpenBroker API connection</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="brokers-interface">
+<h2><span class="section-number">2.2. </span>Brokers interface<a class="headerlink" href="#brokers-interface" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openbroker.BrokersClient">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.</span></span><span class="sig-name descname"><span class="pre">BrokersClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UserSession</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openbroker.BrokersClient" title="Permalink to this definition"></a></dt>
+<dd><dl class="py property">
+<dt class="sig sig-object py" id="openbroker.BrokersClient.brokers">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">brokers</span></span><a class="headerlink" href="#openbroker.BrokersClient.brokers" title="Permalink to this definition"></a></dt>
+<dd><p>Dictionary representing broker connections.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openbroker.BrokersClient.get_broker">
+<span class="sig-name descname"><span class="pre">get_broker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">broker_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#openbroker.constant.Broker" title="openbroker.constant.broker.Broker"><span class="pre">Broker</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">broker_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#openbroker.entity.BrokerConnection" title="openbroker.entity.broker.BrokerConnection"><span class="pre">BrokerConnection</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#openbroker.BrokersClient.get_broker" title="Permalink to this definition"></a></dt>
+<dd><p>Get a broker configured in the user’s account.
+Use any of the kwargs to select the broker. Only one of the kwargs may be provided at a time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>broker_type</strong> – Broker enum</p></li>
+<li><p><strong>broker_id</strong> – broker id</p></li>
+<li><p><strong>api_key</strong> – broker api key</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>BrokerConnection if requested broker is found, None otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openbroker.BrokersClient.login_broker">
+<span class="sig-name descname"><span class="pre">login_broker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">broker_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#openbroker.constant.Broker" title="openbroker.constant.broker.Broker"><span class="pre">Broker</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openbroker.BrokersClient.login_broker" title="Permalink to this definition"></a></dt>
+<dd><p>Login to the broker - Experimental feature currently implemented for a few brokers (Zerodha and XTS brokers)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openbroker.entity.BrokerConnection">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.entity.</span></span><span class="sig-name descname"><span class="pre">BrokerConnection</span></span><a class="headerlink" href="#openbroker.entity.BrokerConnection" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.entity.BrokerConnection.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openbroker.entity.BrokerConnection.id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.entity.BrokerConnection.broker_type">
+<span class="sig-name descname"><span class="pre">broker_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openbroker.constant.Broker" title="openbroker.constant.broker.Broker"><span class="pre">Broker</span></a></em><a class="headerlink" href="#openbroker.entity.BrokerConnection.broker_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.entity.BrokerConnection.api_key">
+<span class="sig-name descname"><span class="pre">api_key</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openbroker.entity.BrokerConnection.api_key" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openbroker.entity.BrokerConnection.logged_in">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">logged_in</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#openbroker.entity.BrokerConnection.logged_in" title="Permalink to this definition"></a></dt>
+<dd><p>Boolean flag exposing the broker status. True if the broker is logged in for the trading day.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="instruments-interface">
+<h2><span class="section-number">2.3. </span>Instruments interface<a class="headerlink" href="#instruments-interface" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openbroker.InstrumentsClient">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.</span></span><span class="sig-name descname"><span class="pre">InstrumentsClient</span></span><a class="headerlink" href="#openbroker.InstrumentsClient" title="Permalink to this definition"></a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="openbroker.InstrumentsClient.dump">
+<span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">TextIO</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openbroker.InstrumentsClient.dump" title="Permalink to this definition"></a></dt>
+<dd><p>Dump the contract map to a file for later use
+:param file: a path or a file object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openbroker.InstrumentsClient.find_instrument">
+<span class="sig-name descname"><span class="pre">find_instrument</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">underlying</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">segment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Segment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expiry</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strike</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">option_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">OptionType</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#openbroker.datatype.Instrument" title="openbroker.datatype.instrument.Instrument"><span class="pre">Instrument</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#openbroker.InstrumentsClient.find_instrument" title="Permalink to this definition"></a></dt>
+<dd><p>Find an instrument matching the kwargs options from all available instruments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>underlying</strong> – The underlying symbol (i.e. ‘NIFTY’)</p></li>
+<li><p><strong>segment</strong> – The segment of the instrument (i.e. Segment.Future)</p></li>
+<li><p><strong>expiry</strong> – Expiry of the instrument, if applicable, for futures and options (i.e. ‘2023-12-28’)</p></li>
+<li><p><strong>strike</strong> – Strike price of the option, if applicable (i.e. 15000)</p></li>
+<li><p><strong>option_type</strong> – Option type, if applicable (i.e. OptionType.Call)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Instrument object if found, None otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openbroker.InstrumentsClient.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">TextIO</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openbroker.InstrumentsClient.load" title="Permalink to this definition"></a></dt>
+<dd><p>Load the contract map from a file
+:param file: a path or a file object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openbroker.InstrumentsClient.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#openbroker.InstrumentsClient.update" title="Permalink to this definition"></a></dt>
+<dd><p>Fetch the updated contract map from AlgoTest API
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openbroker.datatype.Instrument">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.datatype.</span></span><span class="sig-name descname"><span class="pre">Instrument</span></span><a class="headerlink" href="#openbroker.datatype.Instrument" title="Permalink to this definition"></a></dt>
+<dd><p>Instrument dataclass representing an instrument and its properties.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.Instrument.token">
+<span class="sig-name descname"><span class="pre">token</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openbroker.datatype.Instrument.token" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.Instrument.symbol">
+<span class="sig-name descname"><span class="pre">symbol</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openbroker.datatype.Instrument.symbol" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.Instrument.underlying">
+<span class="sig-name descname"><span class="pre">underlying</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openbroker.datatype.Instrument.underlying" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.Instrument.segment">
+<span class="sig-name descname"><span class="pre">segment</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Segment</span></em><a class="headerlink" href="#openbroker.datatype.Instrument.segment" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.Instrument.expiry">
+<span class="sig-name descname"><span class="pre">expiry</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openbroker.datatype.Instrument.expiry" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.Instrument.strike">
+<span class="sig-name descname"><span class="pre">strike</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openbroker.datatype.Instrument.strike" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.Instrument.option_type">
+<span class="sig-name descname"><span class="pre">option_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">OptionType</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openbroker.datatype.Instrument.option_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.Instrument.lot_size">
+<span class="sig-name descname"><span class="pre">lot_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#openbroker.datatype.Instrument.lot_size" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.Instrument.tick_size">
+<span class="sig-name descname"><span class="pre">tick_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#openbroker.datatype.Instrument.tick_size" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.Instrument.max_qty_in_order">
+<span class="sig-name descname"><span class="pre">max_qty_in_order</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#openbroker.datatype.Instrument.max_qty_in_order" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.Instrument.exchange">
+<span class="sig-name descname"><span class="pre">exchange</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openbroker.datatype.Instrument.exchange" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.Instrument.is_tradable">
+<span class="sig-name descname"><span class="pre">is_tradable</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#openbroker.datatype.Instrument.is_tradable" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="orders-interface">
+<h2><span class="section-number">2.4. </span>Orders interface<a class="headerlink" href="#orders-interface" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openbroker.OrdersClient">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.</span></span><span class="sig-name descname"><span class="pre">OrdersClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UserSession</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openbroker.OrdersClient" title="Permalink to this definition"></a></dt>
+<dd><dl class="py property">
+<dt class="sig sig-object py" id="openbroker.OrdersClient.all_orders">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">all_orders</span></span><a class="headerlink" href="#openbroker.OrdersClient.all_orders" title="Permalink to this definition"></a></dt>
+<dd><p>Dictionary representing all orders.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openbroker.OrdersClient.cancel_orders">
+<span class="sig-name descname"><span class="pre">cancel_orders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">order_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">UUID</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">UUID</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#openbroker.datatype.CancelResponse" title="openbroker.datatype.order.CancelResponse"><span class="pre">CancelResponse</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#openbroker.OrdersClient.cancel_orders" title="Permalink to this definition"></a></dt>
+<dd><p>Cancel orders in a single API call.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>order_list</strong> – list of order ids to be cancelled</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dictionary of order_id: CancelResponse pairs for each order</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openbroker.OrdersClient.get_order">
+<span class="sig-name descname"><span class="pre">get_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">order_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_fetch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#openbroker.entity.Order" title="openbroker.entity.order.Order"><span class="pre">Order</span></a></span></span><a class="headerlink" href="#openbroker.OrdersClient.get_order" title="Permalink to this definition"></a></dt>
+<dd><p>Fetch the order object associated with the order_id.
+If the order is not available and updated in memory, it is fetched via API request.
+Specifying force_fetch=True will always fetch the order via API request.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>order_id</strong> – UUID of the order</p></li>
+<li><p><strong>force_fetch</strong> – always fetch the order via API request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The requested order, if found</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openbroker.OrdersClient.modify_orders">
+<span class="sig-name descname"><span class="pre">modify_orders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">order_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#openbroker.datatype.ModifyOrderRequestParams" title="openbroker.datatype.order.ModifyOrderRequestParams"><span class="pre">ModifyOrderRequestParams</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">UUID</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#openbroker.datatype.ModifyResponse" title="openbroker.datatype.order.ModifyResponse"><span class="pre">ModifyResponse</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#openbroker.OrdersClient.modify_orders" title="Permalink to this definition"></a></dt>
+<dd><p>Modify orders in a single API call.</p>
+<p>The API supports modifying up to 10 orders in a single call.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>order_list</strong> – list of modify requests</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dictionary of order_id: ModifyResponse pairs for each order</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openbroker.OrdersClient.place_orders">
+<span class="sig-name descname"><span class="pre">place_orders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">broker_connection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#openbroker.entity.BrokerConnection" title="openbroker.entity.broker.BrokerConnection"><span class="pre">BrokerConnection</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#openbroker.datatype.PlaceOrderRequestParams" title="openbroker.datatype.order.PlaceOrderRequestParams"><span class="pre">PlaceOrderRequestParams</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#openbroker.datatype.PlaceResponse" title="openbroker.datatype.order.PlaceResponse"><span class="pre">PlaceResponse</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#openbroker.OrdersClient.place_orders" title="Permalink to this definition"></a></dt>
+<dd><p>Place orders in a single API call.</p>
+<p>The API supports placing up to 10 orders in a single call.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>broker_connection</strong> – the broker the orders are to be placed with</p></li>
+<li><p><strong>order_list</strong> – list of place orders requests</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of PlaceResponse objects for each order placed (sorting is maintained)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="order-objects">
+<h3><span class="section-number">2.4.1. </span>Order objects<a class="headerlink" href="#order-objects" title="Permalink to this heading"></a></h3>
+<p><a class="reference internal" href="#openbroker.entity.Order" title="openbroker.entity.Order"><code class="xref py py-class docutils literal notranslate"><span class="pre">Order</span></code></a> is a dataclass representing an existing order in the system.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="openbroker.entity.Order">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.entity.</span></span><span class="sig-name descname"><span class="pre">Order</span></span><a class="headerlink" href="#openbroker.entity.Order" title="Permalink to this definition"></a></dt>
+<dd><p>Class representing all the properties of and order that has been placed.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.entity.Order.instrument_id">
+<span class="sig-name descname"><span class="pre">instrument_id</span></span><a class="headerlink" href="#openbroker.entity.Order.instrument_id" title="Permalink to this definition"></a></dt>
+<dd><p>The instrument id of the order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.entity.Order.symbol">
+<span class="sig-name descname"><span class="pre">symbol</span></span><a class="headerlink" href="#openbroker.entity.Order.symbol" title="Permalink to this definition"></a></dt>
+<dd><p>The symbol of the order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.entity.Order.side">
+<span class="sig-name descname"><span class="pre">side</span></span><a class="headerlink" href="#openbroker.entity.Order.side" title="Permalink to this definition"></a></dt>
+<dd><p>The side, buy or sell, of the order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Side</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.entity.Order.product_type">
+<span class="sig-name descname"><span class="pre">product_type</span></span><a class="headerlink" href="#openbroker.entity.Order.product_type" title="Permalink to this definition"></a></dt>
+<dd><p>The product type of the order (MIS or NRML).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openbroker.constant.ProductType" title="openbroker.constant.ProductType">ProductType</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.entity.Order.order_params">
+<span class="sig-name descname"><span class="pre">order_params</span></span><a class="headerlink" href="#openbroker.entity.Order.order_params" title="Permalink to this definition"></a></dt>
+<dd><p>The type and parameters of the order (Market, Limit, …).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openbroker.datatype.order.OrderParams" title="openbroker.datatype.order.OrderParams">OrderParams</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.entity.Order.quantity">
+<span class="sig-name descname"><span class="pre">quantity</span></span><a class="headerlink" href="#openbroker.entity.Order.quantity" title="Permalink to this definition"></a></dt>
+<dd><p>The quantity of the order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.entity.Order.broker">
+<span class="sig-name descname"><span class="pre">broker</span></span><a class="headerlink" href="#openbroker.entity.Order.broker" title="Permalink to this definition"></a></dt>
+<dd><p>The broker where the order is executed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openbroker.constant.Broker" title="openbroker.constant.Broker">Broker</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.entity.Order.order_id">
+<span class="sig-name descname"><span class="pre">order_id</span></span><a class="headerlink" href="#openbroker.entity.Order.order_id" title="Permalink to this definition"></a></dt>
+<dd><p>The internal order id of the order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.entity.Order.broker_order_id">
+<span class="sig-name descname"><span class="pre">broker_order_id</span></span><a class="headerlink" href="#openbroker.entity.Order.broker_order_id" title="Permalink to this definition"></a></dt>
+<dd><p>The broker order id of the order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.entity.Order.status">
+<span class="sig-name descname"><span class="pre">status</span></span><a class="headerlink" href="#openbroker.entity.Order.status" title="Permalink to this definition"></a></dt>
+<dd><p>The status of the order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openbroker.constant.OrderStatus" title="openbroker.constant.OrderStatus">OrderStatus</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="order-parameters">
+<h4><span class="section-number">2.4.1.1. </span>Order parameters<a class="headerlink" href="#order-parameters" title="Permalink to this heading"></a></h4>
+<p>Order parameters are specific to the order type and are used to create or modify an order.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="openbroker.datatype.order.OrderParams">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.datatype.order.</span></span><span class="sig-name descname"><span class="pre">OrderParams</span></span><a class="headerlink" href="#openbroker.datatype.order.OrderParams" title="Permalink to this definition"></a></dt>
+<dd><p>OrderParams()</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openbroker.datatype.MarketOrderParams">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.datatype.</span></span><span class="sig-name descname"><span class="pre">MarketOrderParams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reference_price</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openbroker.datatype.MarketOrderParams" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#openbroker.datatype.order.OrderParams" title="openbroker.datatype.order.OrderParams"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrderParams</span></code></a></p>
+<p>Dataclass representing the parameters of a market order</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openbroker.datatype.LimitOrderParams">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.datatype.</span></span><span class="sig-name descname"><span class="pre">LimitOrderParams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit_price</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openbroker.datatype.LimitOrderParams" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#openbroker.datatype.order.OrderParams" title="openbroker.datatype.order.OrderParams"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrderParams</span></code></a></p>
+<p>Dataclass representing the parameters of a limit order</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openbroker.datatype.StopLossOrderParams">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.datatype.</span></span><span class="sig-name descname"><span class="pre">StopLossOrderParams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit_price</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger_price</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openbroker.datatype.StopLossOrderParams" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#openbroker.datatype.order.OrderParams" title="openbroker.datatype.order.OrderParams"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrderParams</span></code></a></p>
+<p>Dataclass representing the parameters of a stop loss order</p>
+</dd></dl>
+
+</section>
+<section id="enums-and-constants">
+<h4><span class="section-number">2.4.1.2. </span>Enums and constants<a class="headerlink" href="#enums-and-constants" title="Permalink to this heading"></a></h4>
+<dl class="py class">
+<dt class="sig sig-object py" id="openbroker.constant.Broker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.constant.</span></span><span class="sig-name descname"><span class="pre">Broker</span></span><a class="headerlink" href="#openbroker.constant.Broker" title="Permalink to this definition"></a></dt>
+<dd><p>Enum representing the brokers integrated on AlgoTest.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.AcAgrawal">
+<span class="sig-name descname"><span class="pre">AcAgrawal</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.AcAgrawal'</span></em><a class="headerlink" href="#openbroker.constant.Broker.AcAgrawal" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.AliceBlue">
+<span class="sig-name descname"><span class="pre">AliceBlue</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.AliceBlue'</span></em><a class="headerlink" href="#openbroker.constant.Broker.AliceBlue" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.AngelOne">
+<span class="sig-name descname"><span class="pre">AngelOne</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.AngelOne'</span></em><a class="headerlink" href="#openbroker.constant.Broker.AngelOne" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.BigulXTS">
+<span class="sig-name descname"><span class="pre">BigulXTS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.BigulXTS'</span></em><a class="headerlink" href="#openbroker.constant.Broker.BigulXTS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.Choice">
+<span class="sig-name descname"><span class="pre">Choice</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.Choice'</span></em><a class="headerlink" href="#openbroker.constant.Broker.Choice" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.Dhan">
+<span class="sig-name descname"><span class="pre">Dhan</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.Dhan'</span></em><a class="headerlink" href="#openbroker.constant.Broker.Dhan" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.Edelweiss">
+<span class="sig-name descname"><span class="pre">Edelweiss</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.Edelweiss'</span></em><a class="headerlink" href="#openbroker.constant.Broker.Edelweiss" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.Firstock">
+<span class="sig-name descname"><span class="pre">Firstock</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.Firstock'</span></em><a class="headerlink" href="#openbroker.constant.Broker.Firstock" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.Finvasia">
+<span class="sig-name descname"><span class="pre">Finvasia</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.Finvasia'</span></em><a class="headerlink" href="#openbroker.constant.Broker.Finvasia" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.FivePaisa">
+<span class="sig-name descname"><span class="pre">FivePaisa</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.FivePaisa'</span></em><a class="headerlink" href="#openbroker.constant.Broker.FivePaisa" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.FlatTrade">
+<span class="sig-name descname"><span class="pre">FlatTrade</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.FlatTrade'</span></em><a class="headerlink" href="#openbroker.constant.Broker.FlatTrade" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.Fyers">
+<span class="sig-name descname"><span class="pre">Fyers</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.Fyers'</span></em><a class="headerlink" href="#openbroker.constant.Broker.Fyers" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.IIFL">
+<span class="sig-name descname"><span class="pre">IIFL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.IIFL'</span></em><a class="headerlink" href="#openbroker.constant.Broker.IIFL" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.ICICI">
+<span class="sig-name descname"><span class="pre">ICICI</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.ICICI'</span></em><a class="headerlink" href="#openbroker.constant.Broker.ICICI" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.Jainam">
+<span class="sig-name descname"><span class="pre">Jainam</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.Jainam'</span></em><a class="headerlink" href="#openbroker.constant.Broker.Jainam" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.JainamPro">
+<span class="sig-name descname"><span class="pre">JainamPro</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.JainamPro'</span></em><a class="headerlink" href="#openbroker.constant.Broker.JainamPro" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.JainamXTS">
+<span class="sig-name descname"><span class="pre">JainamXTS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.JainamXTS'</span></em><a class="headerlink" href="#openbroker.constant.Broker.JainamXTS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.JMFL">
+<span class="sig-name descname"><span class="pre">JMFL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.JMFL'</span></em><a class="headerlink" href="#openbroker.constant.Broker.JMFL" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.Kotak">
+<span class="sig-name descname"><span class="pre">Kotak</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.Kotak'</span></em><a class="headerlink" href="#openbroker.constant.Broker.Kotak" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.MasterTrust">
+<span class="sig-name descname"><span class="pre">MasterTrust</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.MasterTrust'</span></em><a class="headerlink" href="#openbroker.constant.Broker.MasterTrust" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.Motilal">
+<span class="sig-name descname"><span class="pre">Motilal</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.Motilal'</span></em><a class="headerlink" href="#openbroker.constant.Broker.Motilal" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.Paytm">
+<span class="sig-name descname"><span class="pre">Paytm</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.Paytm'</span></em><a class="headerlink" href="#openbroker.constant.Broker.Paytm" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.Upstox">
+<span class="sig-name descname"><span class="pre">Upstox</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.Upstox'</span></em><a class="headerlink" href="#openbroker.constant.Broker.Upstox" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.WisdomCapital">
+<span class="sig-name descname"><span class="pre">WisdomCapital</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.WisdomCapital'</span></em><a class="headerlink" href="#openbroker.constant.Broker.WisdomCapital" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.Zebu">
+<span class="sig-name descname"><span class="pre">Zebu</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.Zebu'</span></em><a class="headerlink" href="#openbroker.constant.Broker.Zebu" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.Broker.Zerodha">
+<span class="sig-name descname"><span class="pre">Zerodha</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Broker.Zerodha'</span></em><a class="headerlink" href="#openbroker.constant.Broker.Zerodha" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openbroker.constant.ProductType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.constant.</span></span><span class="sig-name descname"><span class="pre">ProductType</span></span><a class="headerlink" href="#openbroker.constant.ProductType" title="Permalink to this definition"></a></dt>
+<dd><p>Enum representing the product type of an order: MIS or NRML.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.ProductType.MIS">
+<span class="sig-name descname"><span class="pre">MIS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ProductType.MIS'</span></em><a class="headerlink" href="#openbroker.constant.ProductType.MIS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.ProductType.NRML">
+<span class="sig-name descname"><span class="pre">NRML</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ProductType.NRML'</span></em><a class="headerlink" href="#openbroker.constant.ProductType.NRML" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openbroker.constant.PositionType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.constant.</span></span><span class="sig-name descname"><span class="pre">PositionType</span></span><a class="headerlink" href="#openbroker.constant.PositionType" title="Permalink to this definition"></a></dt>
+<dd><p>Enum representing the side of an order: Buy or Sell.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.PositionType.Buy">
+<span class="sig-name descname"><span class="pre">Buy</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'PositionType.Buy'</span></em><a class="headerlink" href="#openbroker.constant.PositionType.Buy" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.PositionType.Sell">
+<span class="sig-name descname"><span class="pre">Sell</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'PositionType.Sell'</span></em><a class="headerlink" href="#openbroker.constant.PositionType.Sell" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openbroker.constant.OrderStatus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.constant.</span></span><span class="sig-name descname"><span class="pre">OrderStatus</span></span><a class="headerlink" href="#openbroker.constant.OrderStatus" title="Permalink to this definition"></a></dt>
+<dd><p>Enum representing the status of an order</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.OrderStatus.Open">
+<span class="sig-name descname"><span class="pre">Open</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Open'</span></em><a class="headerlink" href="#openbroker.constant.OrderStatus.Open" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.OrderStatus.TriggerPending">
+<span class="sig-name descname"><span class="pre">TriggerPending</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Trigger</span> <span class="pre">Pending'</span></em><a class="headerlink" href="#openbroker.constant.OrderStatus.TriggerPending" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.OrderStatus.PlacePending">
+<span class="sig-name descname"><span class="pre">PlacePending</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Place</span> <span class="pre">Pending'</span></em><a class="headerlink" href="#openbroker.constant.OrderStatus.PlacePending" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.OrderStatus.ModifyPending">
+<span class="sig-name descname"><span class="pre">ModifyPending</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Modify</span> <span class="pre">Pending'</span></em><a class="headerlink" href="#openbroker.constant.OrderStatus.ModifyPending" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.OrderStatus.CancelPending">
+<span class="sig-name descname"><span class="pre">CancelPending</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Cancel</span> <span class="pre">Pending'</span></em><a class="headerlink" href="#openbroker.constant.OrderStatus.CancelPending" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.OrderStatus.Canceled">
+<span class="sig-name descname"><span class="pre">Canceled</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Canceled'</span></em><a class="headerlink" href="#openbroker.constant.OrderStatus.Canceled" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.OrderStatus.Rejected">
+<span class="sig-name descname"><span class="pre">Rejected</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Rejected'</span></em><a class="headerlink" href="#openbroker.constant.OrderStatus.Rejected" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.constant.OrderStatus.Completed">
+<span class="sig-name descname"><span class="pre">Completed</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Completed'</span></em><a class="headerlink" href="#openbroker.constant.OrderStatus.Completed" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="place-modify-cancel-orders-interfaces">
+<h3><span class="section-number">2.4.2. </span>Place/Modify/Cancel orders interfaces<a class="headerlink" href="#place-modify-cancel-orders-interfaces" title="Permalink to this heading"></a></h3>
+<section id="place-order">
+<h4><span class="section-number">2.4.2.1. </span>Place order<a class="headerlink" href="#place-order" title="Permalink to this heading"></a></h4>
+<dl class="py class">
+<dt class="sig sig-object py" id="openbroker.datatype.PlaceOrderRequestParams">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.datatype.</span></span><span class="sig-name descname"><span class="pre">PlaceOrderRequestParams</span></span><a class="headerlink" href="#openbroker.datatype.PlaceOrderRequestParams" title="Permalink to this definition"></a></dt>
+<dd><p>Dataclass representing the place request parameters of a single order</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.PlaceOrderRequestParams.instrument_id">
+<span class="sig-name descname"><span class="pre">instrument_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openbroker.datatype.PlaceOrderRequestParams.instrument_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.PlaceOrderRequestParams.symbol">
+<span class="sig-name descname"><span class="pre">symbol</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openbroker.datatype.PlaceOrderRequestParams.symbol" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.PlaceOrderRequestParams.product_type">
+<span class="sig-name descname"><span class="pre">product_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openbroker.constant.ProductType" title="openbroker.constant.order.ProductType"><span class="pre">ProductType</span></a></em><a class="headerlink" href="#openbroker.datatype.PlaceOrderRequestParams.product_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.PlaceOrderRequestParams.side">
+<span class="sig-name descname"><span class="pre">side</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openbroker.constant.PositionType" title="openbroker.constant.order.PositionType"><span class="pre">PositionType</span></a></em><a class="headerlink" href="#openbroker.datatype.PlaceOrderRequestParams.side" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.PlaceOrderRequestParams.quantity">
+<span class="sig-name descname"><span class="pre">quantity</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#openbroker.datatype.PlaceOrderRequestParams.quantity" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.PlaceOrderRequestParams.order_info">
+<span class="sig-name descname"><span class="pre">order_info</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openbroker.datatype.order.OrderParams" title="openbroker.datatype.order.OrderParams"><span class="pre">OrderParams</span></a></em><a class="headerlink" href="#openbroker.datatype.PlaceOrderRequestParams.order_info" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.PlaceOrderRequestParams.tags">
+<span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openbroker.datatype.PlaceOrderRequestParams.tags" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.PlaceOrderRequestParams.user_tag">
+<span class="sig-name descname"><span class="pre">user_tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#openbroker.datatype.PlaceOrderRequestParams.user_tag" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openbroker.datatype.PlaceResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.datatype.</span></span><span class="sig-name descname"><span class="pre">PlaceResponse</span></span><a class="headerlink" href="#openbroker.datatype.PlaceResponse" title="Permalink to this definition"></a></dt>
+<dd><p>Dataclass representing the response of a single place order</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.PlaceResponse.success">
+<span class="sig-name descname"><span class="pre">success</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#openbroker.datatype.PlaceResponse.success" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.PlaceResponse.order_id">
+<span class="sig-name descname"><span class="pre">order_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">UUID</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openbroker.datatype.PlaceResponse.order_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.PlaceResponse.tags">
+<span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openbroker.datatype.PlaceResponse.tags" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.PlaceResponse.user_tag">
+<span class="sig-name descname"><span class="pre">user_tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#openbroker.datatype.PlaceResponse.user_tag" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="modify-order">
+<h4><span class="section-number">2.4.2.2. </span>Modify order<a class="headerlink" href="#modify-order" title="Permalink to this heading"></a></h4>
+<dl class="py class">
+<dt class="sig sig-object py" id="openbroker.datatype.ModifyOrderRequestParams">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.datatype.</span></span><span class="sig-name descname"><span class="pre">ModifyOrderRequestParams</span></span><a class="headerlink" href="#openbroker.datatype.ModifyOrderRequestParams" title="Permalink to this definition"></a></dt>
+<dd><p>Dataclass representing the modify request parameters of a single order</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.ModifyOrderRequestParams.order_id">
+<span class="sig-name descname"><span class="pre">order_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">UUID</span></em><a class="headerlink" href="#openbroker.datatype.ModifyOrderRequestParams.order_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.ModifyOrderRequestParams.order_info">
+<span class="sig-name descname"><span class="pre">order_info</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openbroker.datatype.order.OrderParams" title="openbroker.datatype.order.OrderParams"><span class="pre">OrderParams</span></a></em><a class="headerlink" href="#openbroker.datatype.ModifyOrderRequestParams.order_info" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openbroker.datatype.ModifyResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.datatype.</span></span><span class="sig-name descname"><span class="pre">ModifyResponse</span></span><a class="headerlink" href="#openbroker.datatype.ModifyResponse" title="Permalink to this definition"></a></dt>
+<dd><p>Dataclass representing the response of a single modify order</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.ModifyResponse.success">
+<span class="sig-name descname"><span class="pre">success</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#openbroker.datatype.ModifyResponse.success" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.ModifyResponse.msg">
+<span class="sig-name descname"><span class="pre">msg</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#openbroker.datatype.ModifyResponse.msg" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="cancel-order">
+<h4><span class="section-number">2.4.2.3. </span>Cancel order<a class="headerlink" href="#cancel-order" title="Permalink to this heading"></a></h4>
+<dl class="py class">
+<dt class="sig sig-object py" id="openbroker.datatype.CancelResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.datatype.</span></span><span class="sig-name descname"><span class="pre">CancelResponse</span></span><a class="headerlink" href="#openbroker.datatype.CancelResponse" title="Permalink to this definition"></a></dt>
+<dd><p>Dataclass representing the response of a single cancel order</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.CancelResponse.success">
+<span class="sig-name descname"><span class="pre">success</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#openbroker.datatype.CancelResponse.success" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openbroker.datatype.CancelResponse.msg">
+<span class="sig-name descname"><span class="pre">msg</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#openbroker.datatype.CancelResponse.msg" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tutorial.html" class="btn btn-neutral float-left" title="1. Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="changelog.html" class="btn btn-neutral float-right" title="3. Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, AlgoTest.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

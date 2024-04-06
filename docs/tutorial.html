@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1. Tutorial &mdash; Open Broker 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=2389946f"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2. API Reference" href="api_reference.html" />
+    <link rel="prev" title="Welcome to Open Broker’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Open Broker
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#connecting-with-algotest-account">1.1. Connecting with AlgoTest account</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fetching-brokers">1.2. Fetching brokers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#placing-an-order">1.3. Placing an order</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">2. API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">3. Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Open Broker</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">1. </span>Tutorial</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/tutorial.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tutorial">
+<h1><span class="section-number">1. </span>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this heading"></a></h1>
+<p>This tutorial will guide you through understanding the OpenBroker framework and how to …
+To follow through this tutorial you need an AlgoTest account with a connected broker and the openbroker package installed.
+If you don’t have an account, you can create one by visiting the AlgoTest website.
+The package can be installed using pip:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">openbroker</span>
+</pre></div>
+</div>
+<p>TIP: Testing out and developing in an advanced environment like Jupyter Notebook is recommended.
+Advanced IDEs such as PyCharm or Visual Studio Code also provide type hinting and static analysis.</p>
+<section id="connecting-with-algotest-account">
+<h2><span class="section-number">1.1. </span>Connecting with AlgoTest account<a class="headerlink" href="#connecting-with-algotest-account" title="Permalink to this heading"></a></h2>
+<p>We start by instantiating an OpenBroker object with the AlgoTest account credentials.
+The OpenBroker object is the main interface to the AlgoTest API and represents a user session with AlgoTest.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">openbroker</span> <span class="o">=</span> <span class="n">OpenBroker</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s1">&#39;your_username&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;your_password&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note: be careful in sharing your credentials with others. It is recommended to store your credentials in a secure way.
+This tutorial stores them in plain text for simplicity. Look at the examples in the examples folder for a more secure way to store your credentials.</p>
+<p>After instantiating the OpenBroker client, we can login with the AlgoTest API by calling the connect method.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">openbroker</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The connect method will authenticate the user with the AlgoTest API and establish a session.
+The connect method also loads the user’s account information and useful market data.</p>
+</section>
+<section id="fetching-brokers">
+<h2><span class="section-number">1.2. </span>Fetching brokers<a class="headerlink" href="#fetching-brokers" title="Permalink to this heading"></a></h2>
+<p>Once connected, we can get the list of available brokers and their connection status from <cite>BrokersClient</cite>.</p>
+<p>The <cite>brokers</cite> property returns a dictionary of Broker objects.</p>
+<p><cite>get_broker()</cite> instead returns a single Broker object based on the provided filter.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">brokers_client</span> <span class="o">=</span> <span class="n">openbroker</span><span class="o">.</span><span class="n">brokers</span>
+<span class="n">zerodha_broker</span> <span class="o">=</span> <span class="n">brokers_client</span><span class="o">.</span><span class="n">get_broker</span><span class="p">(</span><span class="n">broker_type</span><span class="o">=</span><span class="n">Broker</span><span class="o">.</span><span class="n">Zerodha</span><span class="p">)</span>
+<span class="n">dhan_broker</span> <span class="o">=</span> <span class="n">brokers_client</span><span class="o">.</span><span class="n">get_broker</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s1">&#39;my-dhan-api-key&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">zerodha_broker</span><span class="o">.</span><span class="n">api_key</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">zerodha_broker</span><span class="o">.</span><span class="n">logged_in</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="placing-an-order">
+<h2><span class="section-number">1.3. </span>Placing an order<a class="headerlink" href="#placing-an-order" title="Permalink to this heading"></a></h2>
+<p>It’s possible to place an order with any logged-in broker by calling the place_order method.
+All it takes is defining a PlaceOrderRequest object and passing it to the place_order method.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">contract</span> <span class="o">=</span> <span class="n">openbroker</span><span class="o">.</span><span class="n">instruments</span><span class="o">.</span><span class="n">find_instrument</span><span class="p">(</span><span class="s1">&#39;NIFTY&#39;</span><span class="p">,</span> <span class="n">Segment</span><span class="o">.</span><span class="n">Option</span><span class="p">,</span> <span class="s1">&#39;2024-04-25&#39;</span><span class="p">,</span> <span class="mi">22900</span><span class="p">,</span> <span class="n">OptionType</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span>
+<span class="n">order_req</span> <span class="o">=</span> <span class="n">PlaceOrderRequestParams</span><span class="p">(</span>
+    <span class="n">instrument_id</span><span class="o">=</span><span class="n">contract</span><span class="o">.</span><span class="n">token</span><span class="p">,</span>
+    <span class="n">symbol</span><span class="o">=</span><span class="n">contract</span><span class="o">.</span><span class="n">symbol</span><span class="p">,</span>
+    <span class="n">product_type</span><span class="o">=</span><span class="n">ProductType</span><span class="o">.</span><span class="n">MIS</span><span class="p">,</span>
+    <span class="n">side</span><span class="o">=</span><span class="n">PositionType</span><span class="o">.</span><span class="n">Buy</span><span class="p">,</span>
+    <span class="n">quantity</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+    <span class="n">order_info</span><span class="o">=</span><span class="n">LimitOrderParams</span><span class="p">(</span><span class="n">limit_price</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">broker_connection</span> <span class="o">=</span> <span class="n">openbroker</span><span class="o">.</span><span class="n">brokers</span><span class="o">.</span><span class="n">get_broker</span><span class="p">(</span><span class="n">Broker</span><span class="o">.</span><span class="n">IIFL</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">openbroker</span><span class="o">.</span><span class="n">orders</span><span class="o">.</span><span class="n">place_orders</span><span class="p">(</span><span class="n">broker_connection</span><span class="p">,</span> <span class="p">[</span><span class="n">order_req</span><span class="p">])</span>
+<span class="n">order_id</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">order_id</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Open Broker’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api_reference.html" class="btn btn-neutral float-right" title="2. API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, AlgoTest.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

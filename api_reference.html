@@ -97,24 +97,27 @@
 <h1><span class="section-number">2. </span>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading"></a></h1>
 <section id="openbroker-client">
 <h2><span class="section-number">2.1. </span>OpenBroker client<a class="headerlink" href="#openbroker-client" title="Permalink to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="openbroker.OpenBroker">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.</span></span><span class="sig-name descname"><span class="pre">OpenBroker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phone_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orders_group_tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openbroker.OpenBroker" title="Permalink to this definition"></a></dt>
-<dd><p>OpenBroker client. The main entry point to AlgoTest APIs.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>phone_number</strong> – User phone number</p></li>
-<li><p><strong>password</strong> – User password</p></li>
-<li><p><strong>user_tag</strong> – User tag assigned to orders</p></li>
-</ul>
-</dd>
-</dl>
-<p>The main client and entry point to AlgoTest APIs.</p>
+<blockquote>
+<div><p>The main client and entry point to AlgoTest APIs.</p>
 <p>It provides authentication and session management for the APIs and exposes the following interfaces:
 - Brokers API <a class="reference internal" href="#openbroker.BrokersClient" title="openbroker.broker.BrokersClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">BrokersClient</span></code></a> for broker information lookup
 - Instruments API <a class="reference internal" href="#openbroker.InstrumentsClient" title="openbroker.instrument.InstrumentsClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">InstrumentsClient</span></code></a> for instrument information lookup
 - Orders API <a class="reference internal" href="#openbroker.OrdersClient" title="openbroker.order.OrdersClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrdersClient</span></code></a> for order management</p>
+</div></blockquote>
+<dl class="py class">
+<dt class="sig sig-object py" id="openbroker.OpenBroker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.</span></span><span class="sig-name descname"><span class="pre">OpenBroker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phone_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orders_group_tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openbroker.OpenBroker" title="Permalink to this definition"></a></dt>
+<dd><p>OpenBroker client. The main entry point to AlgoTest APIs.
+Initialize the OpenBroker client with the user credentials.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>phone_number</strong> – AlgoTest account phone number</p></li>
+<li><p><strong>password</strong> – AlgoTest account password</p></li>
+<li><p><strong>orders_group_tag</strong> – A common tag that a user wants to assign to all the orders placed by this client.        It’s commonly used to identify a session or a strategy, by marking all the orders with the same identifier.        The identifier can be kept same across multiple sessions to track and restore the orders state.</p></li>
+</ul>
+</dd>
+</dl>
 <p><strong>Attributes</strong></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="openbroker.OpenBroker.brokers">
@@ -139,9 +142,9 @@
 <dt class="sig sig-object py" id="openbroker.OpenBroker.connect">
 <span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument_filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openbroker.OpenBroker.connect" title="Permalink to this definition"></a></dt>
 <dd><p>Connect to AlgoTest account and initialize internal components to start using the APIs.
-It initializes the <cite>OrdersClient</cite>, establishing a websocket connection to receive order updates. And if a group tag was supplied
-during initialization, fetches state of all previous orders belonging to that tag.
-It also initializes the <cite>BrokersClient</cite>, fetching the list of brokers connected by the user.
+It initializes the <cite>OrdersClient</cite>, establishing a websocket connection to receive order updates.
+And if a group tag was supplied during initialization, fetches state of all previous orders belonging to that tag.</p>
+<p>It also initializes the <cite>BrokersClient</cite>, fetching the list of brokers connected by the user.
 It also initializes the <cite>InstrumentsClient</cite>, fetching or restoring the list of instruments available for trading.
 It is recommended to provide a static instrument_filepath to avoid fetching instruments every time.</p>
 <dl class="field-list simple">
@@ -149,7 +152,7 @@ It is recommended to provide a static instrument_filepath to avoid fetching inst
 <dd class="field-odd"><p><strong>instrument_filepath</strong> – Optional path to the file where instruments are stored.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p></p>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -210,7 +213,12 @@ Use any of the kwargs to select the broker. Only one of the kwargs may be provid
 <dl class="py class">
 <dt class="sig sig-object py" id="openbroker.entity.BrokerConnection">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openbroker.entity.</span></span><span class="sig-name descname"><span class="pre">BrokerConnection</span></span><a class="headerlink" href="#openbroker.entity.BrokerConnection" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
+<dd><p>Represents a broker account registered on AlgoTest.in
+:param id:
+:param broker_type:
+:param api_key:
+:param logged_until:</p>
+<dl class="py attribute">
 <dt class="sig sig-object py" id="openbroker.entity.BrokerConnection.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openbroker.entity.BrokerConnection.id" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>

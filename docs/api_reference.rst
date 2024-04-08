@@ -6,14 +6,14 @@ API Reference
 OpenBroker client
 =================
 
-.. autoclass:: openbroker.OpenBroker
-
     The main client and entry point to AlgoTest APIs.
 
     It provides authentication and session management for the APIs and exposes the following interfaces:
     - Brokers API :class:`~openbroker.broker.BrokersClient` for broker information lookup
     - Instruments API :class:`~openbroker.instrument.InstrumentsClient` for instrument information lookup
     - Orders API :class:`~openbroker.order.OrdersClient` for order management
+
+.. autoclass:: openbroker.OpenBroker
 
     **Attributes**
 

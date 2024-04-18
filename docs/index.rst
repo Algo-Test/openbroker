@@ -27,6 +27,19 @@ Welcome to Open Broker's documentation!
    changelog
 
 
+Testing(UAT)
+==================
+
+We have an UAT environment to test out the orders interface. 
+To try the UAT environment, set an environment variable `OPENBROKER_UAT` to `True` before importing any files from the library.
+
+.. code-block:: python
+
+    import os
+    os.environ['OPENBROKER_UAT'] = 'True'
+
+    from openbroker import OpenBroker
+
 Indices and tables
 ==================
 

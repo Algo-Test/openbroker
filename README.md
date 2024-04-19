@@ -17,7 +17,7 @@ The library is designed to be as simple as possible to use. Take a look at the [
 
 ## Documentation
 
-The documentation for the library can be found [here](https://openbroker.readthedocs.io/en/latest/).
+The documentation for the library can be found [here](https://algo-test.github.io/openbroker/).
 
 ## Contributing
 

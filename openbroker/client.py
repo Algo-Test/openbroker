@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Callable
 import os
 
 from .broker import BrokersClient
@@ -41,7 +41,7 @@ class OpenBroker:
         self.brokers = None
         self.instruments = InstrumentsClient()
 
-    def connect(self, instrument_filepath: str = None):
+    def connect(self, instrument_filepath: Optional[str] = None, order_update_callback: Optional[Callable] = None) -> None:
         """
         Connect to AlgoTest account and initialize internal components to start using the APIs.
         It initializes the `OrdersClient`, establishing a websocket connection to receive order updates. 
@@ -51,23 +51,29 @@ class OpenBroker:
         It also initializes the `InstrumentsClient`, fetching or restoring the list of instruments available for trading.
         It is recommended to provide a static instrument_filepath to avoid fetching instruments every time.
         
-        :param instrument_filepath: Optional path to the file where instruments are stored. 
+        :param instrument_filepath: [Optional] path to the file where instruments are stored. If it is `None` then the instruments are not initialized.\
+        If the file exists, it will be loaded. If the file does not exist, instruments will be fetched from the server and saved to the file.
+        
+        :param order_update_callback: [Optional] A callback function that will be called whenever an order update is received on websocket.\
+        
         :return: None
         """
         user_session = generate_session(self.phone_number, self.password)
 
-        self.orders = OrdersClient(user_session=user_session, orders_group_tag=self.orders_group_tag)
+        self.orders = OrdersClient(user_session=user_session, orders_group_tag=self.orders_group_tag, order_update_callback=order_update_callback)
         self.brokers = BrokersClient(user_session=user_session)
 
         self.brokers.update_brokers()
         self.orders.connect()
         
-        if instrument_filepath is not None and os.path.exists(instrument_filepath):
+        if instrument_filepath is None:
+            return
+        
+        if os.path.exists(instrument_filepath):
             self.instruments.load(instrument_filepath)
         else:
             self.instruments.update()
-            if instrument_filepath is not None:
-                self.instruments.dump(instrument_filepath)
+            self.instruments.dump(instrument_filepath)
         
     def close(self):
         """

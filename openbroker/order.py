@@ -1,4 +1,4 @@
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Callable, Optional
 import time
 import uuid
 import logging
@@ -16,12 +16,13 @@ logger = logging.getLogger(__name__)
 
 class OrdersClient:
 
-    def __init__(self, user_session: UserSession, orders_group_tag: str = '') -> None:
+    def __init__(self, user_session: UserSession, orders_group_tag: str = '', order_update_callback: Optional[Callable] = None) -> None:
         if len(orders_group_tag) > 32:
             raise ValueError('Order API supports max 32 characters in user tag')
 
         self.__user_session = user_session
-        self._user_tag = orders_group_tag
+        self.__user_tag = orders_group_tag
+        self.__order_update_callback = order_update_callback
 
         self.__orders_api = OrdersAPI(user_session=self.__user_session)
 
@@ -33,14 +34,6 @@ class OrdersClient:
         """ Dictionary representing all orders. """
         # TODO: should probably return a RO view (deepcopy) of the dict
         return self.__orders_dict
-
-    def __fetch_tagged_orders(self) -> None:
-        if not self._user_tag:
-            return
-
-        response = self.__orders_api.get_order_by_user_tag(user_tag=self._user_tag)
-        for order_dict in response:
-            self.__update_order(Order.load(order_dict))
 
     def __update_order(self, new_update: Order) -> None:
         order_id = new_update.order_id
@@ -56,14 +49,25 @@ class OrdersClient:
     def __update_order_callback(self, order_update: dict) -> None:
         # noinspection PyBroadException
         try:
-            if self._user_tag and order_update.get('user_tag') != self._user_tag:
+            if self.__user_tag and order_update.get('user_tag') != self.__user_tag:
                 return
             
             new_update = Order.load(order_update)
             self.__update_order(new_update)
 
+            if self.__order_update_callback:
+                self.__order_update_callback(new_update)
+
         except Exception:
             logger.exception(f"Error in processing ws callback payload: {order_update}")
+
+    def __fetch_tagged_orders(self) -> None:
+        if not self.__user_tag:
+            return
+
+        response = self.__orders_api.get_order_by_user_tag(user_tag=self.__user_tag)
+        for order_dict in response:
+            self.__update_order(Order.load(order_dict))
 
     def connect(self, ws_update=True, fetch_prev_orders=True):
         """
@@ -150,8 +154,8 @@ class OrdersClient:
                 if len(value) > 30:
                     raise ValueError('Order API supports max 30 characters in tag value')
             
-            if self._user_tag:
-                order.user_tag = self._user_tag
+            if self.__user_tag:
+                order.user_tag = self.__user_tag
 
         response = self.__orders_api.place_orders(broker_id=broker_connection.id, order_list=order_list)
         return [PlaceResponse.load(data) for data in response]

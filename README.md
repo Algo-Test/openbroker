@@ -13,19 +13,19 @@ pip install openbroker
 
 ## Usage
 
-The library is designed to be as simple as possible to use. Take a look at the [examples](./examples/).
+The library is designed to be as simple as possible to use. Take a look at the [examples](https://github.com/Algo-Test/openbroker/tree/main/examples).
 
 ## Documentation
 
-The documentation for the library can be found [here](https://openbroker.readthedocs.io/en/latest/).
+The documentation for the library can be found [here](https://algo-test.github.io/openbroker/).
 
 ## Contributing
 
-Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
+Contributions are welcome! Please read [CONTRIBUTING.md](https://github.com/Algo-Test/openbroker/blob/main/CONTRIBUTING.md) for more information.
 
 ## License
 
-This project is licensed under the terms of the [MIT License](LICENSE).
+This project is licensed under the terms of the [MIT License](https://github.com/Algo-Test/openbroker/blob/main/LICENSE).
 
 ## Disclaimer
 

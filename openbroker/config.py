@@ -9,7 +9,7 @@ class Config:
     
     broker_login_url = 'https://algotest.in/api/broker_login'
 
-    feed_base_url = 'https://algotest.in/api/pricefeed'
+    feed_base_url = 'https://prices.algotest.in'
     
     order_base_url = 'https://algotest.in/api/orders-uat' if __is_uat_env else 'https://algotest.in/api/orders'
 
